@@ -39,7 +39,6 @@ coverage.xml
 *.db
 *.sqlite3
 .env
-.env.*
 
 # macOS / Windows system files
 .DS_Store
