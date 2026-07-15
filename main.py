@@ -1,12 +1,11 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
-from psycopg2.extras import RealDictCursor
+import config
 from database import get_connection
 from models import Car, Person
 from db_helpers import fetch_all, fetch_one, insert_record, delete_record
 
 conn = get_connection()
-cur = conn.cursor(cursor_factory=RealDictCursor)
 app = FastAPI()
 
 
