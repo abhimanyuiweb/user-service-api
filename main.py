@@ -1,9 +1,10 @@
 from typing import List
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 import config
 from database import get_connection
 from models import Car, Person
 from db_helpers import fetch_all, fetch_one, insert_record, delete_record
+from auth import basic_auth
 
 conn = get_connection()
 app = FastAPI()
@@ -14,7 +15,7 @@ def read_root():
     raise HTTPException(status_code=400, detail=str('Invalid path'))
 
 
-@app.get("/users", response_model=List[Car])
+@app.get("/users", response_model=List[Car], dependencies=[Depends(basic_auth)])
 def getUsers():
     try:
         return fetch_all("SELECT * FROM cars;", ('model', 'year'))
